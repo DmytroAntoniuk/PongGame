@@ -2,12 +2,12 @@ from turtle import Screen
 
 
 class PongField:
-    def __init__(self, paddle):
+    def __init__(self, right_paddle, left_paddle):
         self.instance = Screen()
-        self.paddle = paddle
+        self.right_paddle = right_paddle
+        self.left_paddle = left_paddle
         self.setup_props()
         self.setup_signals()
-        self.instance.exitonclick()
 
     def setup_props(self):
         self.instance.bgcolor("black")
@@ -16,4 +16,16 @@ class PongField:
 
     def setup_signals(self):
         self.instance.listen()
-        self.instance.onkey(self.paddle.go_up, "Up")
+        self.setup_right_paddle_signals()
+        self.setup_left_paddle_signals()
+
+    def setup_right_paddle_signals(self):
+        self.instance.onkey(self.right_paddle.go_up, "Up")
+        self.instance.onkey(self.right_paddle.go_down, "Down")
+
+    def setup_left_paddle_signals(self):
+        self.instance.onkey(self.left_paddle.go_up, "w")
+        self.instance.onkey(self.left_paddle.go_down, "s")
+
+    def update(self):
+        self.instance.update()
