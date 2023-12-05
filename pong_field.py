@@ -1,5 +1,8 @@
 from turtle import Screen
 
+width = 800
+height = 600
+
 
 class PongField:
     def __init__(self, right_paddle, left_paddle):
@@ -11,7 +14,7 @@ class PongField:
 
     def setup_props(self):
         self.instance.bgcolor("black")
-        self.instance.setup(width=800, height=600)
+        self.instance.setup(width=width, height=height)
         self.instance.title("Pong")
 
     def setup_signals(self):
