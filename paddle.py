@@ -1,11 +1,19 @@
+from enum import Enum
 from turtle import Turtle
 
 
+class Side(Enum):
+    Right = 1
+    Left = 2
+
+
 class Paddle(Turtle):
-    def __init__(self, position):
+    def __init__(self, position, side):
         super().__init__()
+        self.side = side
         self.position = position
         self.setup_props()
+        self.height = self.turtlesize()[0]*10
 
     def setup_props(self):
         self.shape("square")
