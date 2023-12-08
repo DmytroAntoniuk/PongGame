@@ -1,10 +1,4 @@
-from enum import Enum
 from turtle import Turtle
-
-
-class Side(Enum):
-    Right = 1
-    Left = 2
 
 
 class Paddle(Turtle):
