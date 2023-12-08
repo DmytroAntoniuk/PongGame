@@ -29,7 +29,7 @@ class Ball(Turtle):
         x = self.xcor()
         y = self.ycor()
 
-        self.detect_collision_with_wall()
+        self.detect_collision_with_sides()
         self.detect_collision_with_paddle(self.left_paddle)
         self.detect_collision_with_paddle(self.right_paddle)
 
@@ -37,20 +37,22 @@ class Ball(Turtle):
         new_y = self.ycor() + self.moving_speed * self.y_direction
         self.goto(new_x, new_y)
 
-    def detect_collision_with_wall(self):
+    def detect_collision_with_sides(self):
         x = self.xcor()
         y = self.ycor()
 
         if (y > (pong_field.height / 2) - self.size) or (y < -(pong_field.height / 2 - self.size)):
             self.bounce(Axis.Y)
 
-        if (x > (pong_field.width / 2) - self.size) or (x < -(pong_field.width / 2 - self.size)):
-            self.bounce(Axis.X)
+        if self.is_collision_with_wall():
+            self.reset_position()
 
     def detect_collision_with_paddle(self, paddle):
-        if paddle.side == Side.Right and self.distance(paddle) <= paddle.height and self.xcor() >= (paddle.xcor() - self.size):
+        if paddle.side == Side.Right and self.distance(paddle) <= paddle.height and self.xcor() >= (
+                paddle.xcor() - self.size):
             self.bounce(Axis.X)
-        elif paddle.side == Side.Left and self.distance(paddle) <= paddle.height and self.xcor() <= (paddle.xcor() + self.size):
+        elif paddle.side == Side.Left and self.distance(paddle) <= paddle.height and self.xcor() <= (
+                paddle.xcor() + self.size):
             self.bounce(Axis.X)
 
     def bounce(self, axis):
@@ -59,3 +61,11 @@ class Ball(Turtle):
         elif axis == Axis.Y:
             self.y_direction *= -1
 
+    def is_collision_with_wall(self):
+        collision_with_right_wall = self.xcor() > (pong_field.width / 2) - self.size
+        collision_with_left_wall = self.xcor() < -(pong_field.width / 2 - self.size)
+        return collision_with_right_wall or collision_with_left_wall
+
+    def reset_position(self):
+        self.goto(0, 0)
+        self.bounce(Axis.X)

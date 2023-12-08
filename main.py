@@ -7,6 +7,7 @@ from ball import Ball
 if __name__ == '__main__':
     right_paddle = Paddle((350, 0), Side.Right)
     left_paddle = Paddle((-350, 0), Side.Left)
+
     ball = Ball(right_paddle, left_paddle)
 
     field = PongField(right_paddle, left_paddle)
